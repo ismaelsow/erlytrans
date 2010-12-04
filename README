@@ -1,0 +1,7 @@
+ErlyTrans
+
+Simple erlang code for text translation using Google Translate api.
+Basic usage : 
+
+erlytrans:translate("morning", "en", "fr", YOUR-API-KEY).
+=> <<"matin">>

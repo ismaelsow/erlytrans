@@ -8,6 +8,10 @@ translate(String, From, To, Key) ->
     inets:start(),
     ssl:start(),
     Response = http:request(URL),
-    {ok, {_, _, JsonData}} = Response,
-    {[{_,{[{_,[{[{_,Translation}]}]}]}}]} = json_eep:json_to_term(JsonData),
-    Translation.
+    {ok, {{_,Status,_}, _, JsonData}} = Response,
+    if
+	Status =:= 200 -> {[{_,{[{_,[{[{_,Translation}]}]}]}}]} = json_eep:json_to_term(JsonData),
+			  Translation;
+        Status =:= 400 -> erlang:error("Bad languages pair");
+	(Status =/= 200) and (Status =/= 400) -> elang:error("Unsuccessful api request")
+    end.

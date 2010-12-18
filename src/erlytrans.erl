@@ -2,7 +2,7 @@
 -export([translate/4]).
 
 translate(String, From, To, Key) ->
-    BaseURL = "https://www.googleapis.com/language/translate/v2?q=" ++ String,
+    BaseURL = "https://www.googleapis.com/language/translate/v2?q=" ++ edoc_lib:escape_uri(String),
     URL = BaseURL ++ "&key=" ++ Key ++ "&source=" ++ From ++ "&target=" ++ To,
     
     inets:start(),
